@@ -190,6 +190,34 @@ const CustomerNavbar = () => {
             Shop<span style={{ color: '#7C3AED' }}>Hub</span>
           </Typography>
           <Divider />
+
+          {/* Mobile Search */}
+          <Box
+            sx={{
+              mx: 2, my: 1.5,
+              display: 'flex', alignItems: 'center',
+              backgroundColor: 'grey.50', borderRadius: 2,
+              border: '1.5px solid', borderColor: 'grey.200',
+              px: 1.5, py: 0.75,
+              '&:focus-within': { borderColor: 'primary.main', backgroundColor: 'white' },
+              transition: 'all 0.2s',
+            }}
+          >
+            <Search size={16} color="#9CA3AF" />
+            <InputBase
+              placeholder="Search products…"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => {
+                handleSearch(e);
+                if (e.key === 'Enter') setMobileOpen(false);
+              }}
+              sx={{ ml: 1, flex: 1, fontSize: '0.875rem' }}
+              inputProps={{ 'aria-label': 'search products' }}
+            />
+          </Box>
+          <Divider />
+
           <List>
             {['All Products', ...CATEGORIES].map((cat) => (
               <ListItem key={cat} disablePadding>

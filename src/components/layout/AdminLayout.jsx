@@ -156,12 +156,21 @@ const AdminLayout = () => {
           sx={{ bgcolor: 'white', borderBottom: '1px solid', borderColor: 'divider' }}
         >
           <Toolbar sx={{ gap: 1 }}>
+            {/* Desktop: toggle sidebar collapse */}
             <IconButton
-              onClick={() => { setCollapsed((c) => !c); setMobileOpen((o) => !o); }}
+              onClick={() => setCollapsed((c) => !c)}
               size="small"
-              sx={{ color: 'text.secondary' }}
+              sx={{ color: 'text.secondary', display: { xs: 'none', md: 'inline-flex' } }}
             >
               {collapsed ? <MenuIcon size={20} /> : <ChevronLeft size={20} />}
+            </IconButton>
+            {/* Mobile: open drawer */}
+            <IconButton
+              onClick={() => setMobileOpen(true)}
+              size="small"
+              sx={{ color: 'text.secondary', display: { xs: 'inline-flex', md: 'none' } }}
+            >
+              <MenuIcon size={20} />
             </IconButton>
             <Typography variant="h6" fontWeight={700} color="text.primary" sx={{ flex: 1 }}>
               ShopHub Admin

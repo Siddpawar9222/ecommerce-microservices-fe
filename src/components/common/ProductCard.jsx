@@ -38,6 +38,12 @@ const ProductCard = ({ product, onAddToCart, isInCart = false }) => {
         flexDirection: 'column',
         position: 'relative',
         overflow: 'hidden',
+        cursor: 'pointer',
+        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+        '&:hover': {
+          transform: 'translateY(-2px)',
+          boxShadow: '0 10px 28px rgba(0,0,0,0.12)',
+        },
         '&:hover .product-image': {
           transform: 'scale(1.05)',
         },
@@ -107,13 +113,17 @@ const ProductCard = ({ product, onAddToCart, isInCart = false }) => {
           component={Link}
           to={`/products/${product.id}`}
           sx={{
-            display: 'block',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
             mt: 0.25,
             color: 'text.primary',
             textDecoration: 'none',
             '&:hover': { color: 'primary.main' },
             transition: 'color 0.2s',
             lineHeight: 1.3,
+            minHeight: '2.6em',
           }}
         >
           {product.name}

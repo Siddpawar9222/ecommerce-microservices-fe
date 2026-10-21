@@ -24,8 +24,24 @@ const CustomerFooter = () => {
               A professional e-commerce platform showcasing a full-stack microservices architecture with React & Spring Boot.
             </Typography>
             <Stack direction="row" spacing={1} sx={{ mt: 2.5 }}>
-              {[Code2, Globe, Share2].map((Icon, i) => (
-                <IconButton key={i} size="small" sx={{ color: 'grey.400', '&:hover': { color: 'white' } }}>
+              {[
+                { Icon: Code2, label: 'GitHub' },
+                { Icon: Globe, label: 'Website' },
+                { Icon: Share2, label: 'Share' },
+              ].map(({ Icon, label }) => (
+                <IconButton
+                  key={label}
+                  size="small"
+                  aria-label={label}
+                  sx={{
+                    color: 'grey.400',
+                    '&:hover': {
+                      color: 'white',
+                      bgcolor: 'rgba(255,255,255,0.1)',
+                    },
+                    transition: 'all 0.2s ease',
+                  }}
+                >
                   <Icon size={18} />
                 </IconButton>
               ))}

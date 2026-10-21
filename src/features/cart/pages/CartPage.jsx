@@ -52,78 +52,80 @@ const CartPage = () => {
             {items.map((item, idx) => (
               <Box key={item.productId}>
                 {idx > 0 && <Divider />}
-                <Box sx={{ display: 'flex', gap: 2.5, p: 3, alignItems: 'center', flexWrap: 'wrap' }}>
-                  {/* Image */}
-                  <Box
-                    component="img"
-                    src={item.image || DEFAULT_PRODUCT_IMAGE}
-                    alt={item.name}
-                    onError={(e) => { e.target.src = DEFAULT_PRODUCT_IMAGE; }}
-                    sx={{
-                      width: 88, height: 88, borderRadius: 2, objectFit: 'cover',
-                      bgcolor: 'grey.50', border: '1px solid', borderColor: 'divider', flexShrink: 0,
-                    }}
-                  />
-
-                  {/* Name + controls */}
-                  <Box sx={{ flex: 1, minWidth: 0 }}>
-                    <Typography
-                      variant="subtitle1"
-                      fontWeight={600}
-                      component={Link}
-                      to={`/products/${item.productId}`}
-                      sx={{ textDecoration: 'none', color: 'text.primary', '&:hover': { color: 'primary.main' } }}
-                      noWrap
-                    >
-                      {item.name}
-                    </Typography>
-                    <Typography variant="body2" color="primary" fontWeight={600} sx={{ mt: 0.25 }}>
-                      {formatCurrency(item.price)}
-                    </Typography>
+                <Box sx={{ p: 3 }}>
+                  {/* Top row: image + product info */}
+                  <Box sx={{ display: 'flex', gap: 2.5, mb: 2 }}>
+                    <Box
+                      component="img"
+                      src={item.image || DEFAULT_PRODUCT_IMAGE}
+                      alt={item.name}
+                      onError={(e) => { e.target.src = DEFAULT_PRODUCT_IMAGE; }}
+                      sx={{
+                        width: 88, height: 88, borderRadius: 2, objectFit: 'cover',
+                        bgcolor: 'grey.50', border: '1px solid', borderColor: 'divider', flexShrink: 0,
+                      }}
+                    />
+                    <Box sx={{ flex: 1, minWidth: 0 }}>
+                      <Typography
+                        variant="subtitle1"
+                        fontWeight={600}
+                        component={Link}
+                        to={`/products/${item.productId}`}
+                        sx={{ textDecoration: 'none', color: 'text.primary', '&:hover': { color: 'primary.main' } }}
+                      >
+                        {item.name}
+                      </Typography>
+                      <Typography variant="body2" color="primary" fontWeight={600} sx={{ mt: 0.25 }}>
+                        {formatCurrency(item.price)} each
+                      </Typography>
+                    </Box>
                   </Box>
 
-                  {/* Quantity */}
-                  <Box
-                    sx={{
-                      display: 'flex', alignItems: 'center', border: '1.5px solid', borderColor: 'divider',
-                      borderRadius: 2, overflow: 'hidden',
-                    }}
-                  >
-                    <IconButton
-                      size="small"
-                      onClick={() => dispatch(updateQuantity({ productId: item.productId, quantity: item.quantity - 1 }))}
-                      disabled={item.quantity <= 1}
-                      sx={{ borderRadius: 0 }}
+                  {/* Bottom row: quantity controls + line total + remove */}
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+                    {/* Quantity stepper */}
+                    <Box
+                      sx={{
+                        display: 'flex', alignItems: 'center', border: '1.5px solid', borderColor: 'divider',
+                        borderRadius: 2, overflow: 'hidden',
+                      }}
                     >
-                      <Minus size={14} />
-                    </IconButton>
-                    <Typography sx={{ px: 2, fontWeight: 700, minWidth: 36, textAlign: 'center', fontSize: '0.9375rem' }}>
-                      {item.quantity}
+                      <IconButton
+                        size="small"
+                        onClick={() => dispatch(updateQuantity({ productId: item.productId, quantity: item.quantity - 1 }))}
+                        disabled={item.quantity <= 1}
+                        sx={{ borderRadius: 0 }}
+                      >
+                        <Minus size={14} />
+                      </IconButton>
+                      <Typography sx={{ px: 2, fontWeight: 700, minWidth: 36, textAlign: 'center', fontSize: '0.9375rem' }}>
+                        {item.quantity}
+                      </Typography>
+                      <IconButton
+                        size="small"
+                        onClick={() => dispatch(updateQuantity({ productId: item.productId, quantity: item.quantity + 1 }))}
+                        disabled={item.quantity >= 10}
+                        sx={{ borderRadius: 0 }}
+                      >
+                        <Plus size={14} />
+                      </IconButton>
+                    </Box>
+
+                    {/* Line total */}
+                    <Typography variant="subtitle1" fontWeight={700} sx={{ flex: 1, textAlign: { xs: 'left', sm: 'right' } }}>
+                      {formatCurrency(item.price * item.quantity)}
                     </Typography>
+
+                    {/* Remove */}
                     <IconButton
                       size="small"
-                      onClick={() => dispatch(updateQuantity({ productId: item.productId, quantity: item.quantity + 1 }))}
-                      disabled={item.quantity >= 10}
-                      sx={{ borderRadius: 0 }}
+                      onClick={() => dispatch(removeFromCart(item.productId))}
+                      color="error"
+                      sx={{ border: '1px solid', borderColor: 'error.light', borderRadius: 1.5 }}
                     >
-                      <Plus size={14} />
+                      <Trash2 size={16} />
                     </IconButton>
                   </Box>
-
-                  {/* Line total */}
-                  <Typography variant="subtitle1" fontWeight={700} sx={{ minWidth: 80, textAlign: 'right' }}>
-                    {formatCurrency(item.price * item.quantity)}
-                  </Typography>
-
-                  {/* Remove */}
-                  <IconButton
-                    size="small"
-                    onClick={() => dispatch(removeFromCart(item.productId))}
-                    color="error"
-                    sx={{ ml: 'auto' }}
-                  >
-                    <Trash2 size={18} />
-                  </IconButton>
                 </Box>
               </Box>
             ))}

@@ -143,7 +143,7 @@ const AdminDashboardPage = () => {
                   justifyContent: 'space-between',
                 }}
               >
-                <Box>
+                <Box sx={{ flex: 1 }}>
                   <Typography variant="caption" color="text.secondary" fontWeight={600} textTransform="uppercase">
                     {kpi.title}
                   </Typography>
@@ -151,8 +151,8 @@ const AdminDashboardPage = () => {
                     {kpi.value}
                   </Typography>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                    <TrendingUp size={14} color="#10B981" />
-                    <Typography variant="caption" color="success.main" fontWeight={700}>
+                    <TrendingUp size={14} color={kpi.color} />
+                    <Typography variant="caption" sx={{ color: kpi.color }} fontWeight={700}>
                       {kpi.change}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">

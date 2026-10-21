@@ -27,19 +27,21 @@ const EmptyState = ({
     >
       <Box
         sx={{
-          width: 72,
-          height: 72,
+          width: 80,
+          height: 80,
           borderRadius: '50%',
-          backgroundColor: 'grey.100',
+          background: 'linear-gradient(135deg, #EFF6FF 0%, #F5F3FF 100%)',
+          border: '1px solid #E5E7EB',
+          boxShadow: '0 4px 16px rgba(37,99,235,0.1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          mb: 2,
+          mb: 2.5,
         }}
       >
-        <Icon size={32} color="#9CA3AF" />
+        <Icon size={36} color="#6B7280" />
       </Box>
-      <Typography variant="h6" color="text.primary" gutterBottom>
+      <Typography variant="h6" color="text.primary" fontWeight={700} gutterBottom>
         {title}
       </Typography>
       {description && (
